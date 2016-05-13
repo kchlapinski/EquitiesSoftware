@@ -1,0 +1,36 @@
+﻿<Window x:Class="Ubs.Equities.Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Equities Software" MinHeight="600" MinWidth="870" Height="600" Width="870">
+    <Grid>
+        <Grid.Resources>
+            <Style x:Key="ContentControlContainerStyle" TargetType="Grid">
+                <Setter Property="Background" Value="LightBlue" />
+                <Setter Property="Margin" Value="10" />
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Style="{StaticResource ContentControlContainerStyle}">
+            <ContentControl x:Name="ActionContent" />
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0" Style="{StaticResource ContentControlContainerStyle}">
+            <ContentControl x:Name="ListContent"  />
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource ContentControlContainerStyle}">
+            <ContentControl x:Name="SidebarContent" Grid.Row="0"  />
+        </Grid>
+    </Grid>
+</Window>

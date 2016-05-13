@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Ubs.Equities.Client.Views.SidebarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.Resources>
+            <Style x:Key="HeaderSummaryStyle" TargetType="TextBlock">
+                <Setter Property="TextElement.FontSize" Value="20"/>
+                <Setter Property="TextElement.FontWeight" Value="Bold"/>
+            </Style>
+            <Style x:Key="ItemSummaryStyle" TargetType="TextBlock">
+                <Setter Property="Margin" Value="20 0 0 0"/>
+            </Style>
+        </Grid.Resources>
+        <StackPanel Orientation="Vertical">
+            <!-- Equities summary -->
+            <TextBlock Text="Equities" Style="{StaticResource HeaderSummaryStyle}"/>
+            <TextBlock Text="{Binding Path=EquityTotalNumber, StringFormat='Total Number: \{0\}' }" Style="{StaticResource ItemSummaryStyle}"/>
+            <TextBlock Text="{Binding Path=EquityTotalWeight, StringFormat='Total Stock Weight: \{0:F2\}' }" Style="{StaticResource ItemSummaryStyle}"/>
+            <TextBlock Text="{Binding Path=EquityTotalMarketValue, StringFormat='Total Market Value: \{0:F2\}' }" Style="{StaticResource ItemSummaryStyle}"/>
+            <!-- Bond summary -->
+            <TextBlock Text="Bonds" Style="{StaticResource HeaderSummaryStyle}"/>
+            <TextBlock Text="{Binding Path=BondTotalNumber, StringFormat='Total Number: \{0\}' }" Style="{StaticResource ItemSummaryStyle}"/>
+            <TextBlock Text="{Binding Path=BondTotalWeight, StringFormat='Total Stock Weight: \{0:F2\}' }" Style="{StaticResource ItemSummaryStyle}"/>
+            <TextBlock Text="{Binding Path=BondTotalMarketValue, StringFormat='Total Market Value: \{0:F2\}' }" Style="{StaticResource ItemSummaryStyle}"/>
+            <!-- All summary -->
+            <TextBlock Text="All" Style="{StaticResource HeaderSummaryStyle}"/>
+            <TextBlock Text="{Binding Path=TotalNumber, StringFormat='Total Number: \{0\}' }" Style="{StaticResource ItemSummaryStyle}"/>
+            <TextBlock Text="{Binding Path=TotalWeight, StringFormat='Total Stock Weight: \{0:F2\}' }" Style="{StaticResource ItemSummaryStyle}"/>
+            <TextBlock Text="{Binding Path=TotalMarketValue, StringFormat='Total Market Value: \{0:F2\}' }" Style="{StaticResource ItemSummaryStyle}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
