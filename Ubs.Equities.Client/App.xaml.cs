@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Ubs.Equities.Client
 {
@@ -13,8 +14,15 @@ namespace Ubs.Equities.Client
         {
             base.OnStartup(e);
 
+            AppDomain.CurrentDomain.UnhandledException += AppDomainOnUnhandledException;
+
             var bootstrapper = new Bootstrapper();
             bootstrapper.Run();
+        }
+
+        private void AppDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+        {
+            //TODO: add some scenario to handle exceptions
         }
 
         #endregion
