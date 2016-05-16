@@ -103,6 +103,7 @@
     <Compile Include="ViewModels\ListViewModel.cs" />
     <Compile Include="ViewModels\SidebarViewModel.cs" />
     <Compile Include="ViewModels\ISidebarViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ubs.Equities.Models\Ubs.Equities.EntityFramework.csproj">

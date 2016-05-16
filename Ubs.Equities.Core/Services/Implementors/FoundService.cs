@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Autofac.Features.Indexed;
 using AutoMapper;
@@ -44,7 +43,6 @@ namespace Ubs.Equities.Core.Services.Implementors
         {
             var found = new Found
             {
-                Id = Guid.NewGuid(),
                 Name = "MyFound"
             };
 

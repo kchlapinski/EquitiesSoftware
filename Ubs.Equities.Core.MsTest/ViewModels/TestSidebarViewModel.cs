@@ -25,7 +25,7 @@ namespace Ubs.Equities.Core.MsTest.ViewModels
             {
                 CallBase = true
             };
-            viewModelMock.Setup(v => v.SubscribeStockAddedEvent(It.IsAny<IEventAggregator>()));
+            viewModelMock.Setup(v => v.SubscribeStockAddedEvent());
             viewModelMock.Setup(v => v.RefreshData(It.IsAny<string>()));
 
             var viewModel = viewModelMock.Object;

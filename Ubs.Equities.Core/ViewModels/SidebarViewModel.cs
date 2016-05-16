@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Ubs.Equities.Core.Models;
 using Ubs.Equities.Core.Services;
@@ -8,7 +7,7 @@ using Ubs.Equities.EntityFramework;
 
 namespace Ubs.Equities.Core.ViewModels
 {
-    internal class SidebarViewModel : BindableBase, ISidebarViewModel
+    internal class SidebarViewModel : ViewModelBase, ISidebarViewModel
     {
         #region Private fields
 
@@ -24,23 +23,23 @@ namespace Ubs.Equities.Core.ViewModels
 
         private decimal _equityTotalWeight;
 
-        private readonly IFoundService _foundService;
-
         #endregion
         #region Ctors
 
-        public SidebarViewModel(IFoundService foundService, IEventAggregator eventAggregator)
+        public SidebarViewModel(IFoundService foundService, IEventAggregator eventAggregator) : base(foundService, eventAggregator)
         {
-            _foundService = foundService;
+        }
 
-            SubscribeStockAddedEvent(eventAggregator);
+        protected override void InitializeViewModel()
+        {
+            SubscribeStockAddedEvent();
 
             RefreshData();
         }
 
-        internal virtual void SubscribeStockAddedEvent(IEventAggregator eventAggregator)
+        internal virtual void SubscribeStockAddedEvent()
         {
-            eventAggregator.GetEvent<StockAddedEvent>().Subscribe(RefreshData, ThreadOption.BackgroundThread);
+            EventAggregator.GetEvent<StockAddedEvent>().Subscribe(RefreshData, ThreadOption.BackgroundThread);
         }
 
         #endregion
@@ -48,7 +47,7 @@ namespace Ubs.Equities.Core.ViewModels
 
         internal virtual void RefreshData(string stockName = null)
         {
-            List<StockModel> stockModels = _foundService.GetStocks().ToList();
+            List<StockModel> stockModels = FoundService.GetStocks().ToList();
 
             BondTotalNumber = stockModels.Count(s => s.Type == StockType.Bond);
             BondTotalMarketValue = stockModels.Where(s => s.Type == StockType.Bond).Sum(s => s.MarketValue);

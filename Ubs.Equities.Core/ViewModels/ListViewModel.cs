@@ -1,27 +1,29 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Ubs.Equities.Core.Models;
 using Ubs.Equities.Core.Services;
 
 namespace Ubs.Equities.Core.ViewModels
 {
-    public class ListViewModel : BindableBase, IListViewModel
+    public class ListViewModel : ViewModelBase, IListViewModel
     {
         #region Private fields
-
-        private readonly IFoundService _foundService;
 
         private IEnumerable<StockModel> _stocks;
 
         #endregion
         #region Ctors
 
-        public ListViewModel(IFoundService foundService, IEventAggregator eventAggregator)
+        public ListViewModel(IFoundService foundService, IEventAggregator eventAggregator) : base(foundService, eventAggregator)
         {
-            _foundService = foundService;
+        }
 
-            SubscribeStockAddedEvent(eventAggregator);
+        #endregion
+        #region Overrides
+
+        protected override void InitializeViewModel()
+        {
+            SubscribeStockAddedEvent();
 
             RefreshData();
         }
@@ -31,12 +33,12 @@ namespace Ubs.Equities.Core.ViewModels
 
         internal virtual void RefreshData(string stockName = null)
         {
-            Stocks = _foundService.GetStocks();
+            Stocks = FoundService.GetStocks();
         }
 
-        internal virtual void SubscribeStockAddedEvent(IEventAggregator eventAggregator)
+        internal virtual void SubscribeStockAddedEvent()
         {
-            eventAggregator.GetEvent<StockAddedEvent>().Subscribe(RefreshData, ThreadOption.BackgroundThread);
+            EventAggregator.GetEvent<StockAddedEvent>().Subscribe(RefreshData, ThreadOption.BackgroundThread);
         }
 
         #endregion

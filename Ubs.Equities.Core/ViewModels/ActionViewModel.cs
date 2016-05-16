@@ -1,19 +1,14 @@
 using System.ComponentModel;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Ubs.Equities.Core.Services;
 using Ubs.Equities.EntityFramework;
 
 namespace Ubs.Equities.Core.ViewModels
 {
-    public class ActionViewModel : BindableBase, IDataErrorInfo, IActionViewModel
+    public class ActionViewModel : ViewModelBase, IDataErrorInfo, IActionViewModel
     {
         #region Private fields
-
-        private readonly IEventAggregator _eventAggregator;
-
-        private readonly IFoundService _foundService;
 
         private decimal _price;
 
@@ -24,11 +19,8 @@ namespace Ubs.Equities.Core.ViewModels
         #endregion
         #region Ctors
 
-        public ActionViewModel(IFoundService foundService, IEventAggregator eventAggregator)
+        public ActionViewModel(IFoundService foundService, IEventAggregator eventAggregator) : base(foundService, eventAggregator)
         {
-            _foundService = foundService;
-            _eventAggregator = eventAggregator;
-
             AddStockCommand = new DelegateCommand(AddStockAction, IsValid);
         }
 
@@ -45,7 +37,7 @@ namespace Ubs.Equities.Core.ViewModels
 
         internal string GetStockName()
         {
-            long count = _foundService.StockCount(StockType);
+            long count = FoundService.StockCount(StockType);
 
             string name = $"{StockType}{count + 1}";
             return name;
@@ -65,14 +57,14 @@ namespace Ubs.Equities.Core.ViewModels
         {
             string name = GetStockName();
 
-            _foundService.AddStock(name, Price, Quantity, StockType);
+            FoundService.AddStock(name, Price, Quantity, StockType);
 
             PublishStockAddedEvent(name);
         }
 
         private void PublishStockAddedEvent(string name)
         {
-            _eventAggregator.GetEvent<StockAddedEvent>().Publish(name);
+            EventAggregator.GetEvent<StockAddedEvent>().Publish(name);
         }
 
         #endregion

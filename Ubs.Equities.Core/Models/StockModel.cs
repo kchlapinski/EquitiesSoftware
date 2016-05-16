@@ -9,8 +9,6 @@ namespace Ubs.Equities.Core.Models
 
         public decimal FoundTotalMarketValue { get; set; }
 
-        //public Guid Id { get; set; }
-
         protected abstract IStockCalculator StockCalculator { get; }
 
         protected abstract decimal Tolerance { get; }
