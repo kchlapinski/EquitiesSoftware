@@ -6,6 +6,7 @@ using Autofac.Features.Indexed;
 using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Ubs.Equities.Core.Calculators;
 using Ubs.Equities.Core.Models;
 using Ubs.Equities.Core.Services.Implementors;
 using Ubs.Equities.EntityFramework;
@@ -73,7 +74,7 @@ namespace Ubs.Equities.Core.MsTest.Services
             foundDbContext.Setup(f => f.Stocks).Returns(dbSetStocksMock.Object);
 
             var iindexMock = new Mock<IIndex<StockType, StockModel>>();
-            iindexMock.SetupGet(i => i[It.IsAny<StockType>()]).Returns(new BondModel());
+            iindexMock.SetupGet(i => i[It.IsAny<StockType>()]).Returns(new BondModel(new BondCalculator()));
 
             var mapper = new Mock<IMapper>();
             mapper.Setup(m => m.Map(It.IsAny<Stock>(), It.IsAny<StockModel>(), It.IsAny<Type>(), It.IsAny<Type>()))

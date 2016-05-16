@@ -7,11 +7,16 @@ namespace Ubs.Equities.Core.Models
     {
         #region Properties
 
-        protected override IStockCalculator StockCalculator => new BondCalculator();
-
         protected override decimal Tolerance => 100000;
 
         public override StockType Type => StockType.Bond;
+
+        #endregion
+        #region Ctors
+
+        public BondModel(IStockCalculator stockCalculator) : base(stockCalculator)
+        {
+        }
 
         #endregion
     }

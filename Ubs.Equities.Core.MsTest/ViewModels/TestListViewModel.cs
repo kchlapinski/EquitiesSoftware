@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Ubs.Equities.Core.Calculators;
 using Ubs.Equities.Core.Models;
 using Ubs.Equities.Core.Services;
 using Ubs.Equities.Core.ViewModels;
@@ -50,7 +51,7 @@ namespace Ubs.Equities.Core.MsTest.ViewModels
         [TestMethod]
         public void RefreshDataShoudSetStocksProperty()
         {
-            var stockModel = new BondModel();
+            var stockModel = new BondModel(new BondCalculator());
 
             var foundServiceMock = new Mock<IFoundService>();
             foundServiceMock.Setup(f => f.GetStocks()).Returns(new List<StockModel>

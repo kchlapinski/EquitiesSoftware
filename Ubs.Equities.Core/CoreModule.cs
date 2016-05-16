@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using AutoMapper;
+using Ubs.Equities.Core.Calculators;
 using Ubs.Equities.Core.Models;
 using Ubs.Equities.Core.Services.Implementors;
 using Ubs.Equities.Core.ViewModels;
@@ -25,9 +26,13 @@ namespace Ubs.Equities.Core
 
             builder.RegisterType<SidebarViewModel>().AsImplementedInterfaces();
 
-            builder.RegisterType<EquityModel>().Keyed<StockModel>(StockType.Equity);
+            builder.RegisterType<EquityCalculator>().AsSelf();
 
-            builder.RegisterType<BondModel>().Keyed<StockModel>(StockType.Bond);
+            builder.RegisterType<BondCalculator>().AsSelf();
+
+            builder.Register(context => new EquityModel(context.Resolve<EquityCalculator>())).Keyed<StockModel>(StockType.Equity);
+
+            builder.Register(context => new BondModel(context.Resolve<BondCalculator>())).Keyed<StockModel>(StockType.Bond);
 
             builder.RegisterInstance(new MapperConfiguration(configuration =>
             {

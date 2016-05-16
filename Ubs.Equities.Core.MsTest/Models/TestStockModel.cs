@@ -12,11 +12,10 @@ namespace Ubs.Equities.Core.MsTest.Models
         [TestMethod]
         public void BondModelShouldBeInvalidWhenMarketValueIsLessThanZero()
         {
-            var stockModelMock = new Mock<StockModel>
+            var stockModelMock = new Mock<StockModel>(new BondCalculator())
             {
                 CallBase = true
             };
-            stockModelMock.Protected().SetupGet<IStockCalculator>("StockCalculator").Returns(new BondCalculator());
             
             stockModelMock.Object.Price = -1m;
             stockModelMock.Object.Quantity = 2;
@@ -27,11 +26,10 @@ namespace Ubs.Equities.Core.MsTest.Models
         [TestMethod]
         public void BondModelShouldBeValidWhenMarketValueIsGreaterThanZero()
         {
-            var stockModelMock = new Mock<StockModel>
+            var stockModelMock = new Mock<StockModel>(new BondCalculator())
             {
                 CallBase = true
             };
-            stockModelMock.Protected().SetupGet<IStockCalculator>("StockCalculator").Returns(new BondCalculator());
             stockModelMock.Protected().SetupGet<decimal>("Tolerance").Returns(10000);
 
             stockModelMock.Object.Price = 5m;

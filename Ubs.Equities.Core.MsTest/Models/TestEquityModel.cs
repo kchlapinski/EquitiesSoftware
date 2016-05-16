@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Ubs.Equities.Core.Calculators;
 using Ubs.Equities.Core.Models;
 
 namespace Ubs.Equities.Core.MsTest.Models
@@ -9,7 +10,7 @@ namespace Ubs.Equities.Core.MsTest.Models
         [TestMethod]
         public void EquityModelShouldBeInvalidWhenTransactionCostIsGreaterThanTolerance()
         {
-            var equityModel = new EquityModel
+            var equityModel = new EquityModel(new EquityCalculator())
             {
                 Price = 10000001m,
                 Quantity = 1
@@ -21,7 +22,7 @@ namespace Ubs.Equities.Core.MsTest.Models
         [TestMethod]
         public void EquityModelShouldBeValidWhenTransactionCostIsLessThanTolerance()
         {
-            var equityModel = new EquityModel
+            var equityModel = new EquityModel(new EquityCalculator())
             {
                 Price = 1001m,
                 Quantity = 1

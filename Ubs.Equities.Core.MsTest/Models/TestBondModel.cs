@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Ubs.Equities.Core.Calculators;
 using Ubs.Equities.Core.Models;
 
 namespace Ubs.Equities.Core.MsTest.Models
@@ -11,7 +12,7 @@ namespace Ubs.Equities.Core.MsTest.Models
         [TestMethod]
         public void BondModelShouldBeInvalidWhenTransactionCostIsGreaterThanTolerance()
         {
-            var bondModel = new BondModel
+            var bondModel = new BondModel(new BondCalculator())
             {
                 Name = "Bond1",
                 Price = 10000001m,
@@ -24,7 +25,7 @@ namespace Ubs.Equities.Core.MsTest.Models
         [TestMethod]
         public void BondModelShouldBeValidWhenTransactionCostIsLessThanTolerance()
         {
-            var bondModel = new BondModel
+            var bondModel = new BondModel(new BondCalculator())
             {
                 Name = "Bond1",
                 Price = 1001m,

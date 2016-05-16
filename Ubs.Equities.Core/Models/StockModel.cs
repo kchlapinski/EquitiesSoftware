@@ -9,9 +9,17 @@ namespace Ubs.Equities.Core.Models
 
         public decimal FoundTotalMarketValue { get; set; }
 
-        protected abstract IStockCalculator StockCalculator { get; }
+        protected IStockCalculator StockCalculator { get; }
 
         protected abstract decimal Tolerance { get; }
+
+        #endregion
+        #region Ctors
+
+        protected StockModel(IStockCalculator stockCalculator)
+        {
+            StockCalculator = stockCalculator;
+        }
 
         #endregion
         #region IStockModel Members

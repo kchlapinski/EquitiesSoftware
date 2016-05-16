@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Ubs.Equities.Core.Calculators;
 using Ubs.Equities.Core.Models;
 using Ubs.Equities.Core.Services;
 using Ubs.Equities.Core.ViewModels;
@@ -107,14 +108,14 @@ namespace Ubs.Equities.Core.MsTest.ViewModels
 
         private static List<StockModel> GetStockModelList()
         {
-            var bondModel = new BondModel
+            var bondModel = new BondModel(new BondCalculator())
             {
                 Price = 10m,
                 Quantity = 2,
                 FoundTotalMarketValue = 56m
             };
 
-            var equityModel = new EquityModel
+            var equityModel = new EquityModel(new EquityCalculator())
             {
                 Price = 12m,
                 Quantity = 3,
